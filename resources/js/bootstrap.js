@@ -61,6 +61,6 @@ window.io = require('socket.io-client');
 if (typeof io !== 'undefined') {
     window.Echo = new Echo({
         broadcaster: 'socket.io',
-        host: '127.0.0.1:6001',
+        host: 'http://chat.test:6001',
     });
 }

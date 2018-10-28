@@ -1,18 +1,25 @@
 {
     "authHost": "http://chat.test",
     "authEndpoint": "/broadcasting/auth",
-    "clients": [],
+    "clients": [
+        {
+            "appId": "e52f54cc3ee9f1ab",
+            "key": "b23296847615355027fe1a1ec0416c61"
+        }
+    ],
     "database": "redis",
     "databaseConfig": {
-        "redis": {},
+        "redis": {
+            "port": "6379",
+            "host": "127.0.0.1"
+        },
         "sqlite": {
             "databasePath": "/database/laravel-echo-server.sqlite"
         },
-        "port": "6379",
-        "host": "127.0.0.1"
+        "publishPresence": true
     },
     "devMode": true,
-    "host": null,
+    "host": "http://chat.test",
     "port": "6001",
     "protocol": "http",
     "socketio": {},

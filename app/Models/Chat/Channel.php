@@ -27,4 +27,8 @@ class Channel extends Model {
     protected $fillable = [
         'name',
     ];
+
+    public function messages() {
+        return $this->hasMany( Message::class );
+    }
 }

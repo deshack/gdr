@@ -1,10 +1,5 @@
 <?php
 
-use App\Events\MessagePushed;
-use App\Models\Chat\Channel;
-use App\Models\Chat\Message;
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,14 +15,5 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //});
 
-Route::post( '/channels/{channel}/messages', function ( Channel $channel ) {
-    $message = Message::forceCreate( [
-        'channel_id' => $channel->id,
-//        'author'     => request( 'username' ),
-        'message'    => request( 'message' ),
-    ] );
-
-    broadcast( new MessagePushed( $channel, $message ) );
-
-    return $message;
-} );
+Route::post( '/channels/{channel}/messages', 'ChatController@storeMessage' );
+Route::get( '/channels/{channel}/messages', 'ChatController@getMessages' );

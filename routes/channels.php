@@ -13,11 +13,16 @@
 
 use App\Broadcasting\ChatChannel;
 use App\Models\Chat\Channel;
+use App\Models\User;
 
 //Broadcast::channel( 'App.User.{id}', function ( $user, $id ) {
 //    return (int) $user->id === (int) $id;
 //} );
 
-Broadcast::channel( 'chat.{channel}', function ( Channel $channel ) {
-    return true;
+Broadcast::channel( 'chat.{channel}', function ( User $user, Channel $channel ) {
+    if ( is_null( $user ) ) {
+        return false;
+    }
+
+    return $user;
 } );

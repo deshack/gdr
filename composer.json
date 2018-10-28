@@ -29,7 +29,8 @@
         "phpunit/phpunit": "^7.0",
         "barryvdh/laravel-ide-helper": "^2.4.3",
         "doctrine/dbal": "~2.3",
-        "spatie/laravel-mailable-test": "^2.0.1"
+        "spatie/laravel-mailable-test": "^2.0.1",
+        "barryvdh/laravel-debugbar": "v3.2.0"
     },
     "autoload": {
         "classmap": [

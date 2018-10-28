@@ -3,7 +3,7 @@
 namespace App\Broadcasting;
 
 use App\Models\Chat\Channel;
-use App\User;
+use App\Models\User;
 
 class ChatChannel {
     /**
@@ -18,15 +18,15 @@ class ChatChannel {
     /**
      * Authenticate the user's access to the channel.
      *
-     * @param  \App\User $user
-     * @param Channel    $channel
+     * @param User    $user
+     * @param Channel $channel
      *
      * @return array|bool
      */
     public function join( User $user, Channel $channel ) {
         return [
-            'user_id'    => $user->id,
-            'channel_id' => $channel->id,
+            'id'   => $user->id,
+            'name' => $user->name,
         ];
     }
 }

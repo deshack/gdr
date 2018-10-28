@@ -4,8 +4,8 @@ namespace App\Events;
 
 use App\Models\Chat\Channel;
 use App\Models\Chat\Message;
+use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\Channel as BroadcastChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
@@ -40,7 +40,7 @@ class MessagePushed implements ShouldBroadcast {
      * @return \Illuminate\Broadcasting\Channel|array
      */
     public function broadcastOn() {
-        return new BroadcastChannel( 'chat.' . $this->channel->id );
+        return new PresenceChannel( 'chat.' . $this->channel->id );
     }
 
     /**
@@ -50,7 +50,13 @@ class MessagePushed implements ShouldBroadcast {
      */
     public function broadcastWith() {
         return [
-            'message' => $this->message->message
+            'id'      => $this->message->id,
+            'user'    => [
+                'id'   => $this->message->user_id,
+                'name' => $this->message->user->name,
+            ],
+            'message' => $this->message->message,
+            'date'    => optional( $this->message->created_at )->format( 'd/m/Y H:i' ),
         ];
     }
 }

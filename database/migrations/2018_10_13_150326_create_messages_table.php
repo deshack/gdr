@@ -14,6 +14,7 @@ class CreateMessagesTable extends Migration {
         Schema::create( 'chat_messages', function ( Blueprint $table ) {
             $table->increments( 'id' );
             $table->integer( 'channel_id' )->unsigned();
+            $table->integer( 'user_id' )->unsigned();
             $table->text( 'message' );
             $table->timestamps();
         } );

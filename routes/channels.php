@@ -21,8 +21,12 @@ use App\Models\User;
 
 Broadcast::channel( 'chat.{channel}', function ( User $user, Channel $channel ) {
     if ( is_null( $user ) ) {
+        Log::info( 'User is null' );
+
         return false;
     }
+
+    Log::info( 'User is authorized' );
 
     return $user;
 } );

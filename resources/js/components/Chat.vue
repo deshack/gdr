@@ -1,25 +1,29 @@
 <template>
     <div class="row">
         <div class="col-md-4">
-            <ul class="list-group">
-                <li class="list-group-item" v-for="user of users" :key="user.id">{{user.name}}</li>
-            </ul>
+            <md-list>
+                <md-list-item v-for="user of users" :key="user.id">
+                    <md-icon>person</md-icon>
+                    <span class="md-list-item-text">{{user.name}}</span>
+                </md-list-item>
+            </md-list>
         </div>
         <div class="col-md-6">
             <div class="messages" ref="messages">
-                <div class="card card-default mb-2" v-for="message of messages" :key="message.id"
-                     :class="{'bg-light': (message.user_id === user)}">
-                    <div class="card-body">
-                        {{message.message}}
-                    </div>
-                </div>
+                <md-card v-for="message of messages" :key="message.id">
+                    <md-card-content>
+                        <strong v-if="message.user">{{message.user.name}}</strong>
+                        <span>{{message.message}}</span>
+                    </md-card-content>
+                </md-card>
             </div>
 
-            <input type="text"
-                   class="form-control"
-                   placeholder="Scrivi un messaggio"
-                   v-model="message"
-                   @keyup.enter.prevent="sendMessage">
+            <md-field>
+                <md-textarea v-model="message" placeholder="Scrivi..." md-autogrow></md-textarea>
+                <md-button class="md-icon-button md-primary" @click="sendMessage">
+                    <md-icon>send</md-icon>
+                </md-button>
+            </md-field>
         </div>
     </div>
 </template>
@@ -57,23 +61,13 @@
                 })
                 .listen('MessagePushed', e => {
                     console.debug(e);
-                    this.messages.push({
-                        id: e.id,
-                        user_id: e.user.id,
-                        message: e.message
-                    });
+                    this.messages.push(e);
                 });
 
             window.axios.get(`/channels/${this.channel}/messages`)
                 .then(response => {
                     console.debug(response);
-                    this.messages = response.data.data.map(message => {
-                        return {
-                            id: message.id,
-                            user_id: message.user.id,
-                            message: message.message
-                        };
-                    });
+                    this.messages = response.data.data;
                 });
         },
         updated() {
@@ -93,7 +87,9 @@
             },
             scrollToEnd: function () {
                 // scroll to the start of the last message
-                this.$refs.messages.scrollTop = this.$refs.messages.lastElementChild.offsetTop;
+                if (this.$refs.messages.lastElementChild) {
+                    this.$refs.messages.scrollTop = this.$refs.messages.lastElementChild.offsetTop;
+                }
             }
         }
     }

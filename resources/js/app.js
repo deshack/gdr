@@ -5,8 +5,13 @@
  */
 
 require('./bootstrap');
+require('./fontawesome');
 
 window.Vue = require('vue');
+import VueMaterial from "vue-material";
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+
+Vue.use(VueMaterial);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -14,6 +19,7 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('chat', require('./components/Chat.vue'));
 
 const app = new Vue({

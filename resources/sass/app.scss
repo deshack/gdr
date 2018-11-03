@@ -7,6 +7,10 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+@import '~bootstrap-vue/dist/bootstrap-vue.min.css';
+
+@import '~vue-material/dist/vue-material.min.css';
+@import '~vue-material/dist/theme/default.css';
 
 .navbar-laravel {
   background-color: #fff;

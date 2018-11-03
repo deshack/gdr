@@ -1,10 +1,12 @@
 language: php
+
 php:
   - 7.2
+
 before_script:
+  - cp .env.travis .env
   - composer self-update
   - composer install --no-interaction
-  - cp .env.testing .env
   - php artisan key:generate
 
 script:
@@ -14,3 +16,8 @@ branches:
   only:
     - master
     - develop
+
+cache:
+  directories:
+    - node_modules
+    - vendor
